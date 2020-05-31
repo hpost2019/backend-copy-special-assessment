@@ -28,7 +28,20 @@ def get_special_paths(dirname):
 
 
 def copy_to(path_list, dest_dir):
-    print('copy_to fired:', path_list, dest_dir)
+    """
+    Given a list of files copies to a new directory,
+    if the directory exists raise error and exit.
+    """
+    try:
+        os.makedirs(dest_dir)
+    except OSError as e:
+        print(e)
+        exit(1)
+    for path in path_list:
+        file_name = os.path.basename(path)
+        cur_path = os.path.dirname(path)
+        abs_path = os.path.join(cur_path, dest_dir, file_name)
+        shutil.copyfile(path, abs_path)
     return
 
 
