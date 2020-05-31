@@ -46,7 +46,17 @@ def copy_to(path_list, dest_dir):
 
 
 def zip_to(path_list, dest_zip):
-    print('zip_to fired:', path_list, dest_zip)
+    """Given a list of files adds them to the given zip file name"""
+    file_list = ''
+    for path in path_list:
+        file_list += path + ' '
+    print("Command I'm going to do:")
+    print('zip -j', dest_zip, file_list)
+    try:
+        subprocess.call(['zip', '-j', dest_zip] + path_list)
+    except OSError as e:
+        print(e)
+        exit(1)
     return
 
 
